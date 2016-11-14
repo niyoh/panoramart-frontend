@@ -1,0 +1,51 @@
+/**
+ * React Static Boilerplate
+ * https://github.com/koistya/react-static-boilerplate
+ *
+ * Copyright © 2015-2016 Konstantin Tarkus (@koistya)
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE.txt file in the root directory of this source tree.
+ */
+
+@media screen and (max-width: 1024px) {
+
+  .content {
+    padding: 0 16px;
+  }
+
+}
+
+@media (min-width:320px) {
+
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+  .menu {
+    position: relative;
+    margin-right: 1.5em;
+    float: right;
+  }
+
+}
+
+@media (min-width:801px) {
+
+  /* tablet, landscape iPad, lo-res laptops ands desktops */
+  .menu {
+    position: relative;
+    margin-right: 0em;
+    float: right;
+  }
+
+}
+
+.campaignTable {
+  width: 100%;
+}
+
+.campaignName {
+  width: 100%;
+}
+
+.card {
+  width: 100%;
+}
