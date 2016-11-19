@@ -1,18 +1,6 @@
 [
   {
-    "path": "/",
-    "page": "./pages/list_campaigns"
-  },
-  {
-    "path": "/editCampaign",
-    "page": "./pages/edit_campaign"
-  },
-  {
-    "path": "/editCalendar",
-    "page": "./pages/edit_calendar"
-  },
-  {
-    "path": "/listShoppingBaskets",
-    "page": "./pages/list_shopping_baskets"
+    "path": "/placeBid",
+    "page": "./pages/place_bid"
   }
 ]
