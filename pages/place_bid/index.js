@@ -51,23 +51,14 @@ class PlaceBidPage extends React.Component {
       return query_string;
     }();
 
-    // initialize bids if empty
-    if (typeof localStorage.bids === 'undefined' || localStorage.bids.length == 0) {
-      localStorage.bids = "[]";
-    }
-
-    var productCategory = ["beverage", "coffee"];
-    var quantity = 10000;
-    var supplierName = "Nestle Company Limited";
+    var productCategory = JSON.parse(queryParams.productCategory);
+    var quantity = queryParams.quantity;
 
     this.state = {
       'productCategory': productCategory,
-      'quantity': quantity,
-      'supplierName': supplierName
+      'quantity': quantity
     };
   }
-
-  handleClick(target) {}
 
   handleAddition() {}
   handleDelete() {}
@@ -84,16 +75,16 @@ class PlaceBidPage extends React.Component {
       productCategory: this.state.productCategory,
       quantity: this.state.quantity,
       productName: this.state.productName,
+      supplierName: this.state.supplierName,
       unitPrice: this.state.unitPrice,
       slottingFee: this.state.slottingFee,
       productDescription: this.state.productDescription
     });
     localStorage.bids = JSON.stringify(bids);
+    alert('Thank you for bidding!');
   }
 
   render() {
-    var cardClass = classNames(s.card, 'mdl-card', 'mdl-shadow--2dp');
-
     // product category tags
     var productCategoryTags = [];
     for (var i = 0; i < this.state.productCategory.length; i++) {
@@ -112,36 +103,31 @@ class PlaceBidPage extends React.Component {
     // find best deals
     var lowestUnitPrice = 1000000;
     var highestSlottingFee = 0;
-    for (var i = 0; i < relevantBids.length; i++) {
-      if (isNaN(relevantBids[i].unitPrice) || isNaN(relevantBids[i].slottingFee)) continue;
+    if (relevantBids.length > 0) {
+      for (var i = 0; i < relevantBids.length; i++) {
+        if (isNaN(relevantBids[i].unitPrice) || isNaN(relevantBids[i].slottingFee)) continue;
 
-      lowestUnitPrice = Math.min(lowestUnitPrice, relevantBids[i].unitPrice);
-      highestSlottingFee = Math.max(highestSlottingFee, relevantBids[i].slottingFee);
+        lowestUnitPrice = Math.min(lowestUnitPrice, relevantBids[i].unitPrice);
+        highestSlottingFee = Math.max(highestSlottingFee, relevantBids[i].slottingFee);
+      }
+    } else {
+      lowestUnitPrice = "-";
+      highestSlottingFee = "-";
     }
 
     var unitPriceLabel = "Unit Price (lowest now: $" + lowestUnitPrice + " / item)";
     var slottingFeeLabel = "Slotting Fee (highest now: $" + highestSlottingFee + ")";
 
+    var cardClass = classNames(s.card, 'mdl-card', 'mdl-shadow--2dp');
     return (
       <Layout className={s.content}>
-        <div className={s.menu}>
-          <IconButton name="more_vert" id="menu-lower-right" />
-          <Menu target="menu-lower-right" valign="bottom" align="right">
-            <MenuItem onClick={this.handleClick.bind(this, 'sort_by_likes')}>Sort by likes</MenuItem>
-            <MenuItem onClick={this.handleClick.bind(this, 'sort_by_comments')}>Sort by comments</MenuItem>
-            <MenuItem onClick={this.handleClick.bind(this, 'sort_by_date')}>Sort by date</MenuItem>
-            <MenuItem onClick={this.handleClick.bind(this, 'all_favorites')}>All favorites</MenuItem>
-            <MenuItem onClick={this.handleClick.bind(this, 'all_videos')}>All videos</MenuItem>
-          </Menu>
-        </div>
-
         <h4>Bid For A Slot</h4>
 
         <Card className={cardClass}>
           <CardTitle style={{
               color: '#555',
-              height: '176px',
-              background: 'url(http://culturainteractive.com/wp-content/uploads/2014/02/sm-banner.jpg) center / cover'
+              height: '200px',
+              background: 'url(http://wrightmarshall.co.uk/wp-content/uploads/2014/03/banner_auction1.png) center / cover'
             }}>
           </CardTitle>
           <CardText>
@@ -207,20 +193,11 @@ class PlaceBidPage extends React.Component {
               style={{'width': '100%'}}
             />
 
-            <p>Privacy</p>
-            <div>
-              <RadioGroup name="type" value="public" container="ul" childContainer="li">
-                <Radio value="">Disclose bid info</Radio>
-                <Radio value="">Anonymous</Radio>
-              </RadioGroup>
-            </div>
-
             <p></p>
           </CardText>
 
           <CardActions border>
-            <Button onClick={this.submitBid.bind(this)} colored>Save</Button>
-            <Button colored>Cancel</Button>
+            <Button onClick={this.submitBid.bind(this)} colored>Make Bid!</Button>
           </CardActions>
         </Card>
       </Layout>

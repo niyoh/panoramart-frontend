@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Insta9ram</title>
+    <title>PanoraMART</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400italic,500,500italic,700,700italic">
@@ -16,6 +16,14 @@
   </head>
   <body>
     <div id="container"></div>
-    <script src="/dist/main.js?9645b6f92fd1ee5be6c8"></script>
+    <script src="/dist/main.js?b76951261909d0456763"></script>
+
+    <script>
+      // initialize necessary localStorage "schemas"
+      // initialize bids if empty
+      if (typeof localStorage.bids === 'undefined' || localStorage.bids.length == 0) {
+        localStorage.bids = "[]";
+      }
+    </script>
   </body>
 </html>

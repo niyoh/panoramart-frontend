@@ -2,5 +2,9 @@
   {
     "path": "/placeBid",
     "page": "./pages/place_bid"
+  },
+  {
+    "path": "/listBids",
+    "page": "./pages/list_bids"
   }
 ]

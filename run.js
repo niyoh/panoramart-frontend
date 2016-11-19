@@ -17,8 +17,8 @@ const webpack = require('webpack');
 
 // TODO: Update configuration settings
 const config = {
-  title: 'Insta9ram',        // Your website title
-  url: 'http://9gag.niyoh.tech',          // Your website URL
+  title: 'PanoraMART',        // Your website title
+  url: 'http://localhost',          // Your website URL
   project: 'react-static-boilerplate',      // Firebase project. See README.md -> How to Deploy
   trackingID: 'UA-XXXXX-Y',                 // Google Analytics Site's ID
 };

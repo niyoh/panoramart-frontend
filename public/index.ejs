@@ -24,5 +24,13 @@
     </script>
     <script src="https://www.google-analytics.com/analytics.js" async defer></script>
     <%_ } _%>
+
+    <script>
+      // initialize necessary localStorage "schemas"
+      // initialize bids if empty
+      if (typeof localStorage.bids === 'undefined' || localStorage.bids.length == 0) {
+        localStorage.bids = "[]";
+      }
+    </script>
   </body>
 </html>
