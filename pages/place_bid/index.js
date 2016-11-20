@@ -135,6 +135,7 @@ class PlaceBidPage extends React.Component {
 
             <ReactTags
               readOnly
+              placeholder="Add Product Category"
               handleAddition={this.handleAddition}
               handleDelete={this.handleDelete}
               tags={productCategoryTags}

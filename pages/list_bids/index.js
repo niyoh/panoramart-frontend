@@ -119,6 +119,7 @@ class ListBidsPage extends React.Component {
         productCategory:
           <ReactTags
             readOnly
+            placeholder="Add Product Category"
             handleAddition={this.handleAddition}
             handleDelete={this.handleDelete}
             tags={tags}
@@ -156,7 +157,7 @@ class ListBidsPage extends React.Component {
           </Menu>
         </div>
 
-        <h4>List Bids</h4>
+        <h4>Auctions & Bids</h4>
 
         <Card className={cardClass}>
           <CardTitle style={{
@@ -175,6 +176,7 @@ class ListBidsPage extends React.Component {
             <div className={s.filterWrapper}>
               <ReactTags
                 className={s.filter}
+                placeholder="Add Product Category"
                 handleAddition={this.handleAddition.bind(this)}
                 handleDelete={this.handleDelete.bind(this)}
                 tags={filterTags}
@@ -203,6 +205,7 @@ class ListBidsPage extends React.Component {
                 <ReactTags
                   readOnly
                   className={s.filter}
+                  placeholder="Add Product Category"
                   handleAddition={this.handleAddition.bind(this)}
                   handleDelete={this.handleDelete.bind(this)}
                   tags={filterTags}
