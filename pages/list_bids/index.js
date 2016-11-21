@@ -16,6 +16,7 @@ import {Textfield, Dialog, DialogTitle, DialogContent, DialogActions} from 'reac
 import { WithContext as ReactTags } from 'react-tag-input';
 import s from './styles.css';
 import Layout from '../../components/Layout';
+import config from '../../core/config';
 
 class ListBidsPage extends React.Component {
 
@@ -24,10 +25,27 @@ class ListBidsPage extends React.Component {
 
   constructor(props, context) {
     super(props, context);
+
     this.state = {
       filter: [],
       rows: []
     };
+
+    var _this = this;
+    fetch(`${config.API_ENDPOINT}/bids`)
+      .then(function(response) {
+        if (response.status >= 400) {
+          alert('Retrieval failed!');
+          throw new Error("Bad response from server");
+        }
+        return response.json();
+      })
+      .then(function(bids) {
+        for (var i in bids) {
+          bids[i].productCategory = JSON.parse(bids[i].productCategory);
+        }
+        _this.setState({'bids': bids});
+      });
   }
 
   handleCreateAuctionDialogOpen() {
@@ -60,14 +78,13 @@ class ListBidsPage extends React.Component {
     var subject = '[Walmart] Your Slot Bidding Portal';
     var params = 'productCategory=' + encodeURIComponent(JSON.stringify(this.state.filter)) + '&' +
       'quantity=' + this.state.quantity;
-    debugger;
-    var body = 'Dear supplier,\nPlease login through: http://127.0.0.1:3001/placeBid?' + params +
-      '\n\nThanks,\nMerchandising Manager @ Walmart';
+    var body = `Dear supplier,\nPlease login through: ${config.WEB_ENDPOINT}/placeBid?' + params +
+      '\n\nThanks,\nMerchandising Manager @ Walmart`;
     window.location.href = 'mailto:?body=' + encodeURIComponent(body);
   }
 
   render() {
-    var bids = JSON.parse(localStorage.bids);
+    var bids = this.state.bids || [];
     var relevantBids = [];
 
     // retrieve relevant bids

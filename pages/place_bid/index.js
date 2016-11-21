@@ -18,14 +18,31 @@ import {DateField, DatePicker, Calendar} from 'react-date-picker';
 import { WithContext as ReactTags } from 'react-tag-input';
 import s from './styles.css';
 import Layout from '../../components/Layout';
+import config from '../../core/config';
 
 class PlaceBidPage extends React.Component {
-
   static propTypes = {
   };
 
   constructor(props, context) {
     super(props, context);
+
+    var _this = this;
+    var ll = `${config.API_ENDPOINT}/bids`;
+    fetch(`${config.API_ENDPOINT}/bids`)
+      .then(function(response) {debugger;
+        if (response.status >= 400) {
+          alert('Retrieval failed!');
+          throw new Error("Bad response from server");
+        }
+        return response.json();
+      })
+      .then(function(bids) {
+        for (var i in bids) {
+          bids[i].productCategory = JSON.parse(bids[i].productCategory);
+        }
+        _this.setState({'bids': bids});
+      });
 
     // query params
     var queryParams = function () {
@@ -70,18 +87,32 @@ class PlaceBidPage extends React.Component {
   onSlottingFeeChange(event) { this.setState({ slottingFee: event.target.value }); };
 
   submitBid() {
-    var bids = JSON.parse(localStorage.bids);
-    bids.push({
-      productCategory: this.state.productCategory,
+    var bid = {
+      productCategory: JSON.stringify(this.state.productCategory),
       quantity: this.state.quantity,
       productName: this.state.productName,
       supplierName: this.state.supplierName,
       unitPrice: this.state.unitPrice,
       slottingFee: this.state.slottingFee,
       productDescription: this.state.productDescription
-    });
-    localStorage.bids = JSON.stringify(bids);
-    alert('Thank you for bidding!');
+    };
+
+    var _this = this;
+    fetch(`${config.API_ENDPOINT}/bid`, {
+      method: 'POST',
+      headers: {'Content-Type':'application/json'},
+      body: JSON.stringify(bid)
+    })
+      .then(function(response) {
+        if (response.status >= 400) {
+          alert('Retrieval failed!');
+          throw new Error("Bad response from server");
+        }
+        return response.json();
+      })
+      .then(function(bids) {
+        alert('Thank you for bidding!');
+      });
   }
 
   render() {
@@ -92,7 +123,7 @@ class PlaceBidPage extends React.Component {
     }
 
     // retrieve relevant bids
-    var bids = JSON.parse(localStorage.bids);
+    var bids = this.state.bids || [];
     var relevantBids = [];
     for (var i = 0; i < bids.length; i++) {
       if (JSON.stringify(this.state.productCategory) == JSON.stringify(bids[i].productCategory)) {

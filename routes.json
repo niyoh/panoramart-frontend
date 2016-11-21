@@ -6,5 +6,9 @@
   {
     "path": "/listBids",
     "page": "./pages/list_bids"
+  },
+  {
+    "path": "/pushNSell",
+    "page": "./pages/push_n_sell"
   }
 ]
