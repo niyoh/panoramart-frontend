@@ -16,7 +16,7 @@ import {Textfield, Dialog, DialogTitle, DialogContent, DialogActions} from 'reac
 import { WithContext as ReactTags } from 'react-tag-input';
 import s from './styles.css';
 import Layout from '../../components/Layout';
-import config from '../../core/config';
+import * as config from '../../core/config';
 
 class ListBidsPage extends React.Component {
 

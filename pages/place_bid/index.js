@@ -18,7 +18,7 @@ import {DateField, DatePicker, Calendar} from 'react-date-picker';
 import { WithContext as ReactTags } from 'react-tag-input';
 import s from './styles.css';
 import Layout from '../../components/Layout';
-import config from '../../core/config';
+import * as config from '../../core/config';
 
 class PlaceBidPage extends React.Component {
   static propTypes = {
@@ -30,7 +30,7 @@ class PlaceBidPage extends React.Component {
     var _this = this;
     var ll = `${config.API_ENDPOINT}/bids`;
     fetch(`${config.API_ENDPOINT}/bids`)
-      .then(function(response) {debugger;
+      .then(function(response) {
         if (response.status >= 400) {
           alert('Retrieval failed!');
           throw new Error("Bad response from server");
