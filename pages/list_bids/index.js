@@ -78,8 +78,8 @@ class ListBidsPage extends React.Component {
     var subject = '[Walmart] Your Slot Bidding Portal';
     var params = 'productCategory=' + encodeURIComponent(JSON.stringify(this.state.filter)) + '&' +
       'quantity=' + this.state.quantity;
-    var body = `Dear supplier,\nPlease login through: ${config.WEB_ENDPOINT}/placeBid?' + params +
-      '\n\nThanks,\nMerchandising Manager @ Walmart`;
+    var body = `Dear supplier,\nPlease login through: ${config.WEB_ENDPOINT}/placeBid?` + params +
+      '\n\nThanks,\nMerchandising Manager @ Walmart';
     window.location.href = 'mailto:?body=' + encodeURIComponent(body);
   }
 
